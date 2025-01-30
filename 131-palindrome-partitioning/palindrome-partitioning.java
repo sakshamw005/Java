@@ -19,9 +19,15 @@ class Solution {
             }
         }
     }
-    public static boolean isPalindrome(String s){
-        StringBuilder x = new StringBuilder(s) ;
-        StringBuilder y = new StringBuilder(x).reverse() ;
-        return x.toString().equals(y.toString()) ;
+    public static boolean isPalindrome(String s) {
+        int f = 0, l = s.length() - 1;
+        while(f < l) {
+            if(s.charAt(f) != s.charAt(l))
+                return false;
+
+            f++;
+            l--;
+        }
+        return true;
     }
 }
