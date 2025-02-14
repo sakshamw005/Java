@@ -31,7 +31,7 @@ class Solution {
             System.out.println(Arrays.toString(row));
         }
     }
-    public static boolean isItSafe(char[][] grid, int row, int col, int val) {
+    public static boolean isItSafe(char[][] grid, int row, int col,char val) {
         // Check row
         for (int i = 0; i < grid.length; i++) {
             if (grid[row][i] == val) {
