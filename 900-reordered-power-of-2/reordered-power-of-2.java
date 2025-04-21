@@ -6,7 +6,7 @@ class Solution {
             m.put(a.charAt(i),m.getOrDefault(a.charAt(i),0)+1) ;
         }
         for(int i = 0 ; i<=30 ; i++){
-            int pow = (int)Math.pow(2,i) ;
+            int pow = 1 << i ;
             String temp = Integer.toString(pow) ;
             Map<Character,Integer> map = new HashMap<>() ;
             for(int j = 0 ; j<temp.length() ;j++){
