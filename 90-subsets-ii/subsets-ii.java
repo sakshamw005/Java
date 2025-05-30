@@ -5,9 +5,7 @@ class Solution {
         List<Integer> l = new ArrayList<>() ;
         Arrays.sort(nums) ;
         print(nums,0,l,temp) ;
-        for(List<Integer> x : temp){
-            ans.add(x) ;
-        }
+        ans.addAll(temp);
         return ans ;
     }
     public static void print(int[] nums,int curr ,List<Integer> l ,Set<List<Integer>> temp ){
