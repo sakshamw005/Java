@@ -1,23 +1,23 @@
-class Solution{
-    public static List<List<Integer>> permute(int[] nums) {
-            List<List<Integer>> l = new ArrayList<>() ;
-            boolean[] used = new boolean[nums.length] ;
-            permu(nums,l,new ArrayList<>() , used) ;
-            return l ;
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>() ;
+        boolean[] used = new boolean[nums.length] ;
+        print(nums, new ArrayList<>() , ans, used) ;
+        return ans ;
+    }
+    public static void print(int[] nums , List<Integer> temp , List<List<Integer>> ans , boolean[] used){
+        if(temp.size() == nums.length){
+            ans.add(new ArrayList<>(temp)) ;
+            return ;
         }
-    public static void permu(int[] nums , List<List<Integer>> l, List<Integer> temp , boolean[] used){
-            if(temp.size()==nums.length){
-                l.add(new ArrayList<>(temp)) ;
-                return ;
-            }
-            for(int i = 0 ; i<nums.length ; i++){
-                if (!used[i]) {
-                    used[i] = true;
-                    temp.add(nums[i]);
-                    permu(nums,l,temp,used);
-                    temp.remove(temp.size() - 1);
-                    used[i] = false;
-                }
+        for(int i = 0 ; i<nums.length ; i++){
+            if(!used[i]){
+                temp.add(nums[i]) ;
+                used[i] = true ;
+                print(nums,temp,ans,used) ;
+                temp.remove(temp.size()-1) ;
+                used[i] = false ;
             }
         }
+    }
 }
