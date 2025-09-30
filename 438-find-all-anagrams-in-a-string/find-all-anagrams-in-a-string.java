@@ -1,25 +1,36 @@
 class Solution {
     public List<Integer> findAnagrams(String s, String p) {
-        List<Integer> ans = new ArrayList<>();
-        if (s.length() < p.length()) return ans;
 
-        int[] pFreq = new int[26];
-        int[] sFreq = new int[26];
+        if(p.length()>s.length())return new ArrayList<>() ;
 
-        for (int i = 0; i < p.length(); i++) {
-            pFreq[p.charAt(i) - 'a']++;
-            sFreq[s.charAt(i) - 'a']++;
+        List<Integer> ans = new ArrayList<>() ;
+        Map<Character,Integer> map = new HashMap<>() ;
+        Map<Character,Integer> pam = new HashMap<>() ;
+
+        for(int i = 0 ; i<p.length() ; i++){
+            map.put(p.charAt(i),map.getOrDefault(p.charAt(i),0)+1) ;
+            pam.put(s.charAt(i),pam.getOrDefault(s.charAt(i),0)+1) ;
         }
 
-        if (Arrays.equals(pFreq, sFreq)) ans.add(0);
-
-        for (int i = p.length(); i < s.length(); i++) {
-            sFreq[s.charAt(i) - 'a']++;
-            sFreq[s.charAt(i - p.length()) - 'a']--; 
-
-            if (Arrays.equals(pFreq, sFreq)) ans.add(i - p.length() + 1);
+        if(map.equals(pam)){
+            ans.add(0) ;
         }
+        int left = 0 ;
+        for(int i = p.length() ; i<s.length() ; i++){
+            pam.put(s.charAt(left) , pam.get(s.charAt(left))-1) ;
 
-        return ans;
+            if(pam.get(s.charAt(left))==0){
+                pam.remove(s.charAt(left)) ;
+            }
+
+            left++ ;
+
+            pam.put(s.charAt(i) , pam.getOrDefault(s.charAt(i),0)+1) ;
+            if(map.equals(pam)){
+                ans.add(left) ;
+            }
+        }
+        return ans ;
+
     }
 }
