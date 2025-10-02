@@ -4,12 +4,10 @@ class Solution {
         int ans = n ;
         int em = n ;
         n = 0 ;
-        while(n>0 || em>=ex){
-            if(em>=ex){
-                em-=ex ;
-                n++ ;
-                ex++ ;
-            }
+        while(em>=ex){
+            em-=ex ;
+            n++ ;
+            ex++ ;
             if(n>0){
                 ans+= n-- ;
                 em++ ;
