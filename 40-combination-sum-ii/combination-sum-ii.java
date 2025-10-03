@@ -1,6 +1,7 @@
 class Solution {
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         List<List<Integer>> ans = new ArrayList<>() ;
+        Arrays.sort(candidates) ;
         print(candidates ,target,0,0,new ArrayList<>(),ans) ;
         return ans ;
     }
@@ -12,7 +13,7 @@ class Solution {
         if(si>=candidates.length || currsum>target){
             return ;
         }
-        Arrays.sort(candidates) ;
+
         for(int i = si ; i<candidates.length ; i++){
             if(i>si && candidates[i-1]==candidates[i])continue; 
             l.add(candidates[i]) ;
