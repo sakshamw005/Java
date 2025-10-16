@@ -23,6 +23,7 @@ class Solution {
                     if(visited.get(rp.vtx) != rp.dis){
                         return false ;
                     }
+                    continue ;
                 }
                 //3. mark visited
                 visited.put(rp.vtx,rp.dis) ;
