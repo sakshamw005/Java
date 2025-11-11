@@ -1,43 +1,27 @@
 class Solution {
-    static int[][][] dp; 
     public int findMaxForm(String[] strs, int m, int n) {
-        // dp : [index][zerosLeft][onesLeft]
-        dp = new int[strs.length][m + 1][n + 1];
-        for (int i = 0; i < strs.length; i++) {
-            for (int j = 0; j <= m; j++) {
-                for (int k = 0; k <= n; k++) {
-                    dp[i][j][k] = -1;
+        int l=strs.length;
+        int[][] dp=new int[m+1][n+1];
+        dp[0][0]=1;
+        for(int i=1;i<=l;i++){
+            int one=0,zero=0;
+            String x=strs[i-1];
+            for(char c:x.toCharArray())if(c=='0')zero++;
+            one=x.length()-zero;
+            for(int j=m;j>=zero;j--){
+                for(int k=n;k>=one;k--){
+                    if(dp[j-zero][k-one]>0){
+                        dp[j][k]=Math.max(dp[j][k],1 + dp[j-zero][k-one]);
+                    }
                 }
             }
         }
-        return solve(strs, m, n, 0);
-    }
-
-    public int solve(String[] strs, int m, int n, int i) {
-        if (i == strs.length) {
-            return 0;
+        int ans=1;
+        for(int i=1;i<=m;i++){
+            for(int j=1;j<=n;j++){
+                ans=Math.max(ans,dp[i][j]);
+            }
         }
-        if (dp[i][m][n] != -1) {
-            return dp[i][m][n];
-        }
-
-        int[] curr = calc(strs[i]);
-        int zeros = curr[0], ones = curr[1];
-
-        int skip = solve(strs, m, n, i + 1);
-
-        int take = 0;
-        if (zeros <= m && ones <= n) {
-            take = 1 + solve(strs, m - zeros, n - ones, i + 1);
-        }
-
-        dp[i][m][n] = Math.max(skip, take);
-        return dp[i][m][n];
-    }
-
-    public int[] calc(String a) {
-        int z = 0;
-        for (char x : a.toCharArray()) if (x == '0') z++;
-        return new int[]{z, a.length() - z};
+        return ans-1;
     }
 }
