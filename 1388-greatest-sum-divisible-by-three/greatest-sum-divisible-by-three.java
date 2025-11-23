@@ -1,5 +1,8 @@
 class Solution {
     public int maxSumDivThree(int[] nums) {
+        int sum=Arrays.stream(nums).sum();
+        if(sum%3==0)
+        return sum;
         Integer[][] memo = new Integer[nums.length][3];
         int ans = dfs(nums, 0, 0, memo);
         return ans < 0 ? 0 : ans; 
