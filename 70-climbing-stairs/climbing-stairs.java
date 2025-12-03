@@ -1,14 +1,14 @@
 class Solution {
     public int climbStairs(int n) {
         int[] dp = new int[n+1] ;
-        return find(n,dp); 
+        return compute(dp,n) ;
     }
-    public int find(int n , int[] dp){
-        if (n == 1) return 1;
-        if (n == 2) return 2;
+    public int compute(int[] dp , int n){
+        if(n==1)return 1 ;
+        if(n==2)return 2 ;
         if(dp[n]!=0){
             return dp[n] ;
         }
-        return dp[n] = find(n - 1, dp) + find(n - 2, dp);
+        return dp[n] = compute(dp,n-1) + compute(dp,n-2) ;
     }
 }
