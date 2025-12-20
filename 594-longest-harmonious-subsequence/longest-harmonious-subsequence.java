@@ -1,11 +1,9 @@
 class Solution {
     public int findLHS(int[] nums) {
-        Arrays.sort(nums) ;
-        int j = 0 , ans = 0 ;
-        for(int i = 0 ; i<nums.length ;i++){
-            while(nums[i]-nums[j]>1)j++ ;
-            if(nums[i]-nums[j]==1)ans=Math.max(ans,i-j+1) ;
-        }
+        Map<Integer,Integer> m = new HashMap<>() ;
+        for(int i : nums)m.put(i,m.getOrDefault(i,0)+1);
+        int ans = 0 ;
+        for(int i : m.keySet())if(m.containsKey(i+1))ans = Math.max(ans,m.get(i)+m.get(i+1)) ;
         return ans ;
     }
 }
