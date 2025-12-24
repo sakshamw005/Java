@@ -3,11 +3,13 @@ class Solution {
         int n = 0 ;
         for(int i : apple)n+=i ;
         Arrays.sort(capacity) ;
-        int ans = 0 , i = capacity.length-1 ;
-        while(n>0){
-            n-=capacity[i] ;
-            i-- ;
-            ans++ ;
+        int ans = 0 ;
+        for (int i = capacity.length - 1; i >= 0; i--) {
+            n -= capacity[i];
+            ans++;
+            if (n <= 0) {
+                break;
+            }
         }
         return ans ;
     }
