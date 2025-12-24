@@ -7,9 +7,7 @@ class Solution {
             if(x.charAt(i)==y.charAt(i) && y.charAt(i)==z.charAt(i)){
                 i++ ;
             }
-            else{
-                break ;
-            }
+            else break ;
         }
         return i==0 ? -1 : (x.length() - i) + (y.length() - i) + (z.length() - i);
     }
