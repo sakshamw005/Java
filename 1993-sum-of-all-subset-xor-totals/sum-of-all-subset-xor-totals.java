@@ -1,6 +1,6 @@
 class Solution {
     public int subsetXORSum(int[] nums) {
-        if(nums.length==1)return nums[0] ;
+        // if(nums.length==1)return nums[0] ;
         return find(nums,0,0) ;
     }
     public int find(int[] nums , int i , int ans){
