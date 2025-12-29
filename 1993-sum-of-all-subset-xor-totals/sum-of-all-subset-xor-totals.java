@@ -1,13 +1,12 @@
 class Solution {
     public int subsetXORSum(int[] nums) {
-        return sum(nums,0,0) ;
+        if(nums.length==1)return nums[0] ;
+        return find(nums,0,0) ;
     }
-    public int sum(int[] nums , int start , int x){
-        if(start==nums.length){
-            return x ;
+    public int find(int[] nums , int i , int ans){
+        if(i==nums.length){
+            return ans ;
         }
-        int a = sum(nums,start+1,x^nums[start]) ;
-        int b = sum(nums,start+1,x) ;
-        return a+b ;
+        return find(nums,i+1,ans) + find(nums,i+1,ans^nums[i]) ;
     }
 }
