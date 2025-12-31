@@ -13,6 +13,9 @@ class Solution {
         while(!q.isEmpty()){
             //remove
             int x = q.poll() ;
+            if(x==destination){
+                return true ;
+            }
             //ignore
             if(set.contains(x)){
                 continue ;
@@ -20,9 +23,6 @@ class Solution {
             //mark visited
             set.add(x) ;
             //self work
-            if(x==destination){
-                return true ;
-            }
             //add neighbours
             for(int i : map.get(x)){
                 if(!set.contains(i)){
