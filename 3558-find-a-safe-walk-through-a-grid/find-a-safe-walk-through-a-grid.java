@@ -1,42 +1,44 @@
 class Solution {
-
     int[] dx = {-1, 1, 0, 0};
     int[] dy = {0, 0, -1, 1};
-    int[][] best;
-
     public boolean findSafeWalk(List<List<Integer>> grid, int health) {
+
         int n = grid.size();
         int m = grid.get(0).size();
-        best = new int[n][m];
 
+        int[][] best = new int[n][m];
         for (int i = 0; i < n; i++)
             Arrays.fill(best[i], -1);
 
-        return dfs(grid, 0, 0, health);
-    }
+        Queue<int[]> q = new LinkedList<>();
+        q.add(new int[]{0, 0, health});
 
-    private boolean dfs(List<List<Integer>> grid, int r, int c, int health) {
+        while (!q.isEmpty()) {
+            int[] cur = q.poll();
+            int r = cur[0], c = cur[1], h = cur[2];
 
-        if (r < 0 || c < 0 || r >= grid.size() || c >= grid.get(0).size())
-            return false;
+            if (grid.get(r).get(c) == 1)
+                h--;
 
-        if (grid.get(r).get(c) == 1)
-            health--;
+            if (h <= 0)
+                continue;
 
-        if (health <= 0)
-            return false;
-
-        if (health <= best[r][c])
-            return false;
-
-        best[r][c] = health;
-
-        if (r == grid.size() - 1 && c == grid.get(0).size() - 1)
-            return true;
-
-        for (int i = 0; i < 4; i++) {
-            if (dfs(grid, r + dx[i], c + dy[i], health))
+            if (r == n - 1 && c == m - 1)
                 return true;
+
+            if (h <= best[r][c])
+                continue;
+
+            best[r][c] = h;
+
+            for (int i = 0; i < 4; i++) {
+                int nr = r + dx[i];
+                int nc = c + dy[i];
+
+                if (nr >= 0 && nc >= 0 && nr < n && nc < m) {
+                    q.add(new int[]{nr, nc, h});
+                }
+            }
         }
 
         return false;
