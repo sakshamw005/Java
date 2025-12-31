@@ -1,8 +1,5 @@
 class Solution {
     public boolean validPath(int n, int[][] edges, int source, int destination) {
-        if(source==destination){
-            return true ;
-        }
         Map<Integer,List<Integer>> map = new HashMap<>() ;
         for(int i = 0 ; i<n ; i++) map.put(i,new ArrayList<>()) ;
         for(int[] i : edges){
