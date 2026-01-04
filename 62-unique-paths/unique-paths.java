@@ -1,21 +1,19 @@
 class Solution {
+    static int ans = 0 ;
     public int uniquePaths(int m, int n) {
+        int[][] mat = new int[m][n] ;
         int[][] dp = new int[m][n] ;
-        for(int[] i : dp)Arrays.fill(i,-1) ;
-        return calc(0,0,m,n,dp) ;
+        for(int[] i : dp) Arrays.fill(i,-1) ;
+        return print(mat,0,0,dp) ;
     }
-    public int calc( int row , int col , int m, int n , int[][] dp){
-        if(row==m-1 && col==n-1){
+    public int print(int[][] mat , int r , int c , int[][] dp){
+        if(r==mat.length-1 && c==mat[0].length-1){
             return 1 ;
         }
-        if(row>=m || col>=n){
-            return 0 ;
-        }
-        if(dp[row][col]!=-1){
-            return dp[row][col] ;
-        }
-        int a = calc(row+1,col,m,n,dp) ; //down
-        int b = calc(row,col+1,m,n,dp) ; //right
-        return dp[row][col] = a+b; 
+        if(r>=mat.length || c>=mat[0].length)return 0 ;
+        if(dp[r][c]!=-1)return dp[r][c] ;
+        int row = print(mat,r+1,c,dp) ;
+        int col = print(mat,r,c+1,dp) ;
+        return dp[r][c] = row+col ;
     }
 }
