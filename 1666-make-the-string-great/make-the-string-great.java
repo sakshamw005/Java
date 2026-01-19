@@ -1,18 +1,19 @@
 class Solution {
     public String makeGood(String s) {
-        StringBuilder ans = new StringBuilder() ;
+        if(s.length()==1)return s ;
         Stack<Character> st = new Stack<>() ;
-        for(int i = 0 ; i<s.length() ; i++){
-            if(!st.isEmpty() && Math.abs((st.peek()-'a')-(s.charAt(i)-'a'))==32){
+        for(char x : s.toCharArray()){
+            if(!st.isEmpty() && Math.abs(x-st.peek())==32){
                 st.pop() ;
             }
             else{
-                st.push(s.charAt(i)) ;
+                st.push(x) ;
             }
         }
+        StringBuilder ans = new StringBuilder() ;
         while(!st.isEmpty()){
             ans.append(st.pop()) ;
         }
-        return ans.reverse().toString();
+        return ans.reverse().toString() ;
     }
 }
