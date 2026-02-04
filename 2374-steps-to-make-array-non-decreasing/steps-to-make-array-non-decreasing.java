@@ -1,24 +1,22 @@
 class Solution {
     public int totalSteps(int[] nums) {
-        Stack<Pair> st = new Stack<>() ;
         int ans = 0 ;
-        for(int i = nums.length-1 ; i>=0 ; i--){
-            int cnt = 0 ;
-            while(!st.isEmpty() && nums[i]>st.peek().ele){
-                cnt = Math.max(cnt+1,st.peek().val);
+        Stack<int[]> st = new Stack<>() ; //element , steps
+        for(int i : nums){
+            int s = 0 ;
+            while(!st.isEmpty() && st.peek()[0] <= i){
+                s = Math.max(s,st.peek()[1]) ;
                 st.pop() ;
             }
-            ans = Math.max(cnt,ans) ;
-            st.push(new Pair(nums[i],cnt)) ;
+            if(!st.isEmpty()){
+                s++ ;
+            }
+            ans = Math.max(ans,s) ;
+            st.push(new int[]{i,s}) ;
         }
         return ans ;
     }
-    class Pair{
-        int ele ;
-        int val ;
-        Pair(int ele , int val){
-            this.ele = ele ;
-            this.val = val ;
-        }
-    }
 }
+// i = 0 : [{5,0}]
+// i = 1 : [{3,1},{5,0}]
+// i = 2 : []
