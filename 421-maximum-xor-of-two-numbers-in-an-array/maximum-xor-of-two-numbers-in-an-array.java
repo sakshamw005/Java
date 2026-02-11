@@ -1,56 +1,61 @@
 class Solution {
-    public int findMaximumXOR(int[] nums) {
-        Trie trie = new Trie();
-        
-        for (int x : nums) {
-            trie.insert(x);
+    public int findMaximumXOR(int[] arr) {
+     Trie t = new Trie();
+        for(int x : arr){
+            t.add(x);
         }
-        
         int ans = 0;
-        for (int x : nums) {
-            ans = Math.max(ans, trie.getMaxXor(x));
+        for(int x : arr){
+            ans = Math.max(ans, t.getMaxXor(x));
         }
-        return ans;
+        return ans ;
     }
-}
+    static class Trie {
+        static class Node {
+            Node zero;
+            Node one;
+        }
+        Node root = new Node();
+        public void add(int val) {
+            Node curr = root;
 
-class Trie {
-    TrieNode root;
-    
-    Trie() {
-        root = new TrieNode();
-    }
-    
-    void insert(int num) {
-        TrieNode node = root;
-        for (int i = 30; i >= 0; i--) {
-            int bit = (num >> i) & 1;
-            if (node.child[bit] == null) {
-                node.child[bit] = new TrieNode();
-            }
-            node = node.child[bit];
-        }
-    }
-    
-    int getMaxXor(int num) {
-        TrieNode node = root;
-        int maxXor = 0;
-        
-        for (int i = 30; i >= 0; i--) {
-            int bit = (num >> i) & 1;
-            int opp = 1 - bit;
-            
-            if (node.child[opp] != null) {
-                maxXor |= (1 << i);
-                node = node.child[opp];
-            } else {
-                node = node.child[bit];
+            for(int i = 31; i >= 0; i--) {
+                int bit = (val >> i) & 1;
+
+                if(bit == 0) {
+                    if(curr.zero == null)
+                        curr.zero = new Node();
+                    curr = curr.zero;
+                } else {
+                    if(curr.one == null)
+                        curr.one = new Node();
+                    curr = curr.one;
+                }
             }
         }
-        return maxXor;
-    }
-}
+        public int getMaxXor(int x){
+            Node curr = root;
+            int ans = 0;
 
-class TrieNode {
-    TrieNode[] child = new TrieNode[2];
+            for(int i = 31; i >= 0; i--){
+                int bit = (x >> i) & 1;
+                if(bit == 0){
+                    if(curr.one != null){
+                        ans |= (1 << i);
+                        curr = curr.one;
+                    } else {
+                        curr = curr.zero;
+                    }
+                } else {
+                    if(curr.zero != null){
+                        ans |= (1 << i);
+                        curr = curr.zero;
+                    } else {
+                        curr = curr.one;
+                    }
+                }
+            }
+            return ans;
+        }
+    }
 }
