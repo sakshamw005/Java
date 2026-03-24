@@ -18,20 +18,11 @@ public:
                 prod = (prod * grid[i][j])%12345 ;
             }
         }
-        // for(auto i : pref){
-        //     for(int j : i)cout << j << " " ;
-        //     cout << endl ;
-        // }
-        // for(auto i : suff){
-        //     for(int j : i)cout << j << " " ;
-        //     cout << endl ;
-        // }
-        vector<vector<int>> ans(m, vector<int>(n));
         for(int i = 0 ; i<m ; i++){
             for(int j = 0 ; j<n ; j++){
-                ans[i][j] = (pref[i][j] * suff[i][j])%12345 ;
+                grid[i][j] = (pref[i][j] * suff[i][j])%12345 ;
             }
         }
-        return ans ;
+        return grid ;
     }
 };
