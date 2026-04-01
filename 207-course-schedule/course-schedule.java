@@ -1,33 +1,38 @@
 class Solution {
-    public boolean canFinish(int n, int[][] prerequisites) {
-        Map<Integer,List<Integer>> map = new HashMap<>() ;
-        for(int i = 0 ; i<n ; i++)map.put(i,new ArrayList<>()) ;
-        for(int[] i : prerequisites){
-            map.get(i[1]).add(i[0]);
+    public boolean canFinish(int n, int[][] pre) {
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        int[] indegree = new int[n];
+        Queue<Integer> q = new LinkedList<>();
+
+        for (int i = 0; i < n; i++) {
+            map.put(i, new ArrayList<>());
         }
-        Set<Integer> visiting = new HashSet<>() ;
-        Set<Integer> visited = new HashSet<>() ;
-        for(int i = 0 ; i<n ; i++){
-            if(!visited.contains(i)){
-                if(dfs(i,map,visiting,visited)){
-                    return false ;
+
+        for (int i = 0; i < pre.length; i++) {
+            map.get(pre[i][1]).add(pre[i][0]);
+            indegree[pre[i][0]]++;
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (indegree[i] == 0) {
+                q.add(i);
+            }
+        }
+
+        int count = 0;
+
+        while (!q.isEmpty()) {
+            int curr = q.poll();
+            count++;
+
+            for (int ne : map.get(curr)) {
+                indegree[ne]--;
+                if (indegree[ne] == 0) {
+                    q.add(ne);
                 }
             }
         }
-        return true ;
-    }
-    public boolean dfs(int src,Map<Integer,List<Integer>> map,Set<Integer> visiting,Set<Integer> visited){
-        if (visiting.contains(src)) return true;
-        if (visited.contains(src)) return false;
 
-        visiting.add(src);
-
-        for (int nei : map.get(src)) {
-            if (dfs(nei, map, visiting, visited)) return true;
-        }
-
-        visiting.remove(src);
-        visited.add(src);
-        return false;
+        return count == n;
     }
 }
