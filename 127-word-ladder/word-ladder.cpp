@@ -1,7 +1,7 @@
 class Solution {
 public:
     int ladderLength(string bw, string ew, vector<string>& wl) {
-        set<string> set (wl.begin(),wl.end()) ;
+        unordered_set<string> set (wl.begin(),wl.end()) ;
         if(set.count(ew)==0)return 0 ;
         queue<pair<string,int>> q ;
         q.push({bw,1}) ;
