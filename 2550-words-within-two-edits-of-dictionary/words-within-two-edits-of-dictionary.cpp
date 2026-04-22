@@ -7,7 +7,7 @@ public:
         }
         return ans ;
     }
-    bool check(string str , vector<string>& dictionary){
+    bool check(string& str , vector<string>& dictionary){
         for(int i = 0 ; i<dictionary.size() ;i++){
             if(diff(str,dictionary[i])<3){
                 return true ;
@@ -15,7 +15,7 @@ public:
         }
         return false ;
     }
-    int diff(string i , string j){
+    int diff(string& i , string& j){
         int ans = 0 ;
         for(int x = 0 ; x < i.size() ; x++){
             if(i[x]!=j[x])ans++ ;
